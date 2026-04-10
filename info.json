@@ -1,0 +1,78 @@
+{
+  "id": "plugin.com.pot-app.lobster-translate",
+  "plugin_type": "translate",
+  "icon": "lobster-translate.svg",
+  "display": "大龙虾翻译",
+  "homepage": "https://github.com/claw-codes/pot-app-translate-plugin-lobster-translate",
+  "needs": [
+    {
+      "key": "apiFormat",
+      "display": "接口格式",
+      "type": "select",
+      "options": {
+        "completions": "OpenAI Chat Completions",
+        "responses": "OpenAI Responses",
+        "anthropic": "Anthropic Messages"
+      },
+      "default": "completions"
+    },
+    {
+      "key": "baseUrl",
+      "display": "基础URL",
+      "type": "input"
+    },
+    {
+      "key": "apiKey",
+      "display": "API密钥",
+      "type": "input"
+    },
+    {
+      "key": "model",
+      "display": "模型ID",
+      "type": "input"
+    },
+    {
+      "key": "streamOutput",
+      "display": "流式输出（实验性）",
+      "type": "select",
+      "options": {
+        "off": "关闭",
+        "on": "开启"
+      },
+      "default": "off"
+    },
+    {
+      "key": "systemPrompt",
+      "display": "自定义系统提示词（可选）",
+      "type": "input"
+    }
+  ],
+  "language": {
+    "auto": "auto",
+    "zh_cn": "zh",
+    "zh_tw": "zh-Hant",
+    "en": "en",
+    "ja": "ja",
+    "ko": "ko",
+    "fr": "fr",
+    "es": "es",
+    "ru": "ru",
+    "de": "de",
+    "it": "it",
+    "tr": "tr",
+    "pt_pt": "pt-PT",
+    "pt_br": "pt-BR",
+    "vi": "vi",
+    "id": "id",
+    "th": "th",
+    "ms": "ms",
+    "ar": "ar",
+    "hi": "hi",
+    "mn_cy": "mn",
+    "mn_mo": "mn",
+    "km": "km",
+    "nb_no": "nb",
+    "nn_no": "nn",
+    "fa": "fa"
+  }
+}
