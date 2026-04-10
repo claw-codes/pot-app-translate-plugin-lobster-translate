@@ -15,6 +15,12 @@
 
 如果你现在还没有可接入的 API，可以优先试试 [硅基流动 SiliconFlow](https://cloud.siliconflow.cn/i/BLUtUXTw)。注册并完成认证后会有 16 元额度，日常翻译场景通常可以用很久。
 
+## 下载
+
+[点击直接下载最新版](https://github.com/claw-codes/pot-app-translate-plugin-lobster-translate/releases/latest/download/plugin.com.pot-app.lobster-translate.potext)
+
+如果下载失败，可以前往 [Latest Release](https://github.com/claw-codes/pot-app-translate-plugin-lobster-translate/releases/latest) 手动下载 `.potext` 插件文件。
+
 ## 为什么有人会用它
 
 很多人点开这个项目，不是因为“它支持某个协议”，而是因为他们正好遇到了这些问题：
