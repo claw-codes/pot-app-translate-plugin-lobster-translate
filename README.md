@@ -21,6 +21,8 @@
 
 如果下载失败，可以前往 [Latest Release](https://github.com/claw-codes/pot-app-translate-plugin-lobster-translate/releases/latest) 手动下载 `.potext` 插件文件。
 
+第一次安装可以先看：[安装插件视频教程](./docs/install-tutorial.mp4)
+
 ## 为什么有人会用它
 
 很多人点开这个项目，不是因为“它支持某个协议”，而是因为他们正好遇到了这些问题：
