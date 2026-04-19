@@ -516,8 +516,8 @@ function buildRequest(apiFormat, model, systemPrompt, userPrompt, text, options 
             ],
             temperature: 0.2
         };
-        if (options.enableThinking) {
-            request.enable_thinking = true;
+        if (typeof options.enableThinking === "boolean") {
+            request.enable_thinking = options.enableThinking;
         }
         return request;
     }
@@ -558,22 +558,36 @@ function buildRequest(apiFormat, model, systemPrompt, userPrompt, text, options 
 }
 
 function shouldInjectEnableThinking(apiFormat, model, enableThinking) {
-    if (enableThinking !== "on" || apiFormat !== "completions") {
-        return false;
+    if (apiFormat !== "completions") {
+        return undefined;
     }
 
     const normalizedModel = `${model || ""}`.trim().toLowerCase();
     if (!normalizedModel) {
-        return false;
+        return undefined;
     }
 
     if (normalizedModel.includes("thinking") || normalizedModel.includes("instruct")) {
+        return undefined;
+    }
+
+    const isSupportedModel = normalizedModel.includes("qwen") ||
+        normalizedModel.includes("glm") ||
+        normalizedModel.includes("deepseek");
+
+    if (!isSupportedModel) {
+        return undefined;
+    }
+
+    if (enableThinking === "on") {
+        return true;
+    }
+
+    if (enableThinking === "off") {
         return false;
     }
 
-    return normalizedModel.includes("qwen") ||
-        normalizedModel.includes("glm") ||
-        normalizedModel.includes("deepseek");
+    return undefined;
 }
 
 function extractText(apiFormat, data) {
