@@ -80,7 +80,7 @@ async function translate(text, from, to, options) {
         const effectiveSystemPrompt = resolveSystemPrompt(systemPrompt, promptMode, sourceLanguage, to);
         const url = buildEndpoint(baseUrl, format);
         const request = buildRequest(format, model.trim(), effectiveSystemPrompt, userPrompt, text, {
-            enableThinking: shouldInjectEnableThinking(format, model, enableThinking)
+            enableThinking: resolveEnableThinkingValue(format, model, enableThinking)
         });
         const headers = buildHeaders(format, apiKey.trim());
         const shouldStream = streamOutput === "on" && typeof options.setResult === "function";
@@ -516,8 +516,8 @@ function buildRequest(apiFormat, model, systemPrompt, userPrompt, text, options 
             ],
             temperature: 0.2
         };
-        if (options.enableThinking) {
-            request.enable_thinking = true;
+        if (typeof options.enableThinking === "boolean") {
+            request.enable_thinking = options.enableThinking;
         }
         return request;
     }
@@ -557,23 +557,29 @@ function buildRequest(apiFormat, model, systemPrompt, userPrompt, text, options 
     throw `Unsupported apiFormat: ${apiFormat}`;
 }
 
-function shouldInjectEnableThinking(apiFormat, model, enableThinking) {
-    if (enableThinking !== "on" || apiFormat !== "completions") {
-        return false;
+function resolveEnableThinkingValue(apiFormat, model, enableThinking) {
+    if (apiFormat !== "completions") {
+        return null;
     }
 
     const normalizedModel = `${model || ""}`.trim().toLowerCase();
     if (!normalizedModel) {
-        return false;
+        return null;
     }
 
     if (normalizedModel.includes("thinking") || normalizedModel.includes("instruct")) {
-        return false;
+        return null;
     }
 
-    return normalizedModel.includes("qwen") ||
+    const supportsThinkingToggle = normalizedModel.includes("qwen") ||
         normalizedModel.includes("glm") ||
         normalizedModel.includes("deepseek");
+
+    if (!supportsThinkingToggle) {
+        return null;
+    }
+
+    return enableThinking === "on";
 }
 
 function extractText(apiFormat, data) {
