@@ -216,6 +216,9 @@ function buildEndpoint(baseUrl, apiFormat) {
         if (hasPathSuffix(path, ["/v1"])) {
             return `${normalized}/chat/completions`;
         }
+        if (hasVersionSegment(path)) {
+            return `${normalized}/chat/completions`;
+        }
         return `${normalized}/v1/chat/completions`;
     }
     if (apiFormat === "responses") {
@@ -225,6 +228,9 @@ function buildEndpoint(baseUrl, apiFormat) {
         if (hasPathSuffix(path, ["/v1"])) {
             return `${normalized}/responses`;
         }
+        if (hasVersionSegment(path)) {
+            return `${normalized}/responses`;
+        }
         return `${normalized}/v1/responses`;
     }
     if (apiFormat === "anthropic") {
@@ -232,6 +238,9 @@ function buildEndpoint(baseUrl, apiFormat) {
             return normalized;
         }
         if (hasPathSuffix(path, ["/v1"])) {
+            return `${normalized}/messages`;
+        }
+        if (hasVersionSegment(path)) {
             return `${normalized}/messages`;
         }
         return `${normalized}/v1/messages`;
@@ -246,6 +255,10 @@ function getUrlPath(url) {
 
 function hasPathSuffix(path, suffixes) {
     return suffixes.some((suffix) => path === suffix || path.endsWith(`${suffix}`));
+}
+
+function hasVersionSegment(path) {
+    return /\/v\d+(?:\/.*)?$/i.test(path);
 }
 
 function formatHttpError(apiFormat, url, status, data) {
